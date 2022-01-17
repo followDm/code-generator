@@ -40,3 +40,7 @@ domain也可自定义换成entity
 启动的类要加上mapperscan注解
 
 原来的代码https://blog.csdn.net/moshowgame/article/details/82718689
+
+### 再补充
+
+收到好心人劝告，说mysql-connector-java可能存在漏洞，建议提高到8.0.27；我照做了，也改了下驱动，加jc就行
