@@ -1,0 +1,93 @@
+<#assign className = table.className> 
+<#assign tableName = table.sqlName>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.uxin.${modulename}.dao.${className}Mapper" >
+  <resultMap id="BaseResultMap" type="com.uxin.${modulename}.domain.${className}" >
+  	<#list table.columns as column>
+	  <#if column.pk>
+	    <id column="${column.sqlName}" property="${column.columnNameFirstLower}" jdbcType="${column.sqlTypeName}" />
+	  </#if>
+    </#list>
+  	<#list table.columns as column>
+	  <#if !column.pk>
+	    <result column="${column.sqlName}" property="${column.columnNameFirstLower}" jdbcType="${column.sqlTypeName}" />
+	  </#if>
+  </#list>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    <#list table.columns as column>
+    	<#if column.keyWord>`</#if>${column.sqlName}<#if column.keyWord>`</#if><#if column_has_next>,</#if>
+    </#list>
+  </sql>
+  
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    where 
+    <#list table.columns as column>
+	  <#if column.pk>
+    	<#if column.keyWord>`</#if>${column.sqlName}<#if column.keyWord>`</#if> = ${column.beginDelimiter} ${column.columnNameFirstLower},jdbcType=${column.sqlTypeName} }
+      </#if>
+    </#list>  
+  </select>
+  
+  <select id="getList" resultMap="BaseResultMap" parameterType="com.uxin.${modulename}.domain.${className}" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    <where> 
+    <#list table.columns as column>
+	    <if test="${column.columnNameFirstLower} != null" >
+	       and <#if column.keyWord>`</#if>${column.sqlName}<#if column.keyWord>`</#if> = ${column.beginDelimiter} ${column.columnNameFirstLower},jdbcType=${column.sqlTypeName} }
+	    </if>
+    </#list>
+    </where>
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    update ${tableName} set status = 0 
+    where 
+    <#list table.columns as column>
+	  <#if column.pk>
+    	<#if column.keyWord>`</#if>${column.sqlName}<#if column.keyWord>`</#if> = ${column.beginDelimiter} ${column.columnNameFirstLower},jdbcType=${column.sqlTypeName} }
+      </#if>
+    </#list>
+  </delete>
+  
+  <insert id="insert" parameterType="com.uxin.${modulename}.domain.${className}">
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <#list table.columns as column>
+    	<#if column.keyWord>`</#if>${column.sqlName}<#if column.keyWord>`</#if>,
+      </#list>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <#list table.columns as column>
+	    ${column.beginDelimiter} ${column.columnNameFirstLower},jdbcType=${column.sqlTypeName} },
+      </#list>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.uxin.${modulename}.domain.${className}" >
+    update ${tableName}
+    <set >
+      <#list table.columns as column>
+      	<#if !column.pk>
+	    <if test="${column.columnNameFirstLower} != null" >
+	    <#if column.keyWord>`</#if>${column.sqlName}<#if column.keyWord>`</#if> = ${column.beginDelimiter} ${column.columnNameFirstLower},jdbcType=${column.sqlTypeName} },
+	    </if>
+	    </#if>
+    </#list>
+    </set>
+    where 
+    <#list table.columns as column>
+	  <#if column.pk>
+    	<#if column.keyWord>`</#if>${column.sqlName}<#if column.keyWord>`</#if> = ${column.beginDelimiter} ${column.columnNameFirstLower},jdbcType=${column.sqlTypeName} }
+      </#if>
+    </#list>
+  </update>
+ 
+</mapper>

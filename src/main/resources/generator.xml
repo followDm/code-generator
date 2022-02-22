@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>
+		代码生成器配置文件: 
+		1.会为所有的property生成property_dir属性,如pkg=com.company => pkg_dir=com/company
+		2.可以引用环境变量: ${env.JAVA_HOME} or System.properties: ${user.home},property之间也可以相互引用
+	</comment>
+	<!-- 需要生成代码的表，*可生成所有表，多张表可用逗号","隔开-->
+	<entry key="generateTables">student</entry>
+
+	<!-- 需要根据实际情况改动的部分  开始-->
+	<!-- commonspackage 包命名路径，开发中需要根据具体情况需要此路径，但开头必须是com.picc,存放公用的java文件 -->
+	<entry key="commonspackage">com.xcz.demo</entry>
+	<!-- basepackage 包命名路径，开发中需要根据具体情况需要此路径，但开头必须是com.picc -->
+	<entry key="basepackage">com.xcz.demo</entry>
+	<!-- jsp 生成路径: webapp/pages/${namespace}/${className}/list.jsp 模块名，例如platform,需要多层目录时用mc/custimp-->
+	<entry key="namespace">datastream</entry>
+	<entry key="modulename">datastream</entry>
+	<!-- 代码生成器生成的文件输出路径，默认为当前路径下的generator-output文件夹，可以修改-->
+	<entry key="outRoot">D:\\Users\\SBS\\generator-output</entry>
+	<!-- 需要根据实际情况改动的部分  结束-->
+	
+	
+	<!-- 数据库配置部分  开始-->
+	
+	<!-- 需要移除的表名前缀,使用逗号进行分隔多个前缀,示例值: t_,v_ -->
+	<entry key="tableRemovePrefixes">t_</entry>
+	<entry key="jdbc.username">root</entry>
+	<entry key="jdbc.password">1234</entry>
+	<entry key="jdbc.schema">root</entry>
+	<entry key="jdbc.url">jdbc:mysql://localhost:3307/sql20</entry>
+	<entry key="jdbc.driver">com.mysql.cj.jdbc.Driver</entry>
+	<entry key="jdbc.dbtype">mysql</entry>
+	
+	<!-- 数据库配置部分  结束-->
+	
+	<!-- 自定义配置部分 开始 -->
+	<entry key="projectname">test</entry>
+	<entry key="author">xcz</entry>
+
+	<entry key="offset">#{offset}</entry>
+	<entry key="rows">#{rows}</entry>
+	<!--
+	<entry key="dbcp.maxIdle">20</entry>
+	<entry key="dbcp.maxActive">20</entry>
+	-->
+	<!-- 自定义配置部分  结束-->
+	
+	<!-- 数据库类型至java类型映射  -->
+	<entry key="java_typemapping.java.sql.Timestamp">Date</entry>
+	<entry key="java_typemapping.java.sql.Date">Date</entry>
+	<entry key="java_typemapping.java.sql.Time">Date</entry>	
+	<entry key="java_typemapping.java.lang.Byte">Integer</entry>
+	<entry key="java_typemapping.java.lang.Short">Integer</entry>
+	<entry key="java_typemapping.java.math.BigDecimal">BigDecimal</entry>
+	<entry key="java_typemapping.java.sql.Clob">String</entry>	
+</properties>
