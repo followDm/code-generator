@@ -39,3 +39,6 @@ domain也可自定义换成entity
 
 启动的类要加上mapperscan注解
 
+https://blog.csdn.net/qq_39597203/article/details/85069880
+
+帮助我mvn 成功了
